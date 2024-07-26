@@ -13,6 +13,10 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    /**
+     * This function handles all the exception errors returned by the API endpoint's,
+     * be it the request doesn't exist or there's a server error
+     * */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException exception) {
