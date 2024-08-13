@@ -23,4 +23,7 @@ public class WasteCategory
     @NonNull
     private String name;
     private String description;
+
+    public WasteCategory(long id, String name, String description) {
+    }
 }

@@ -22,4 +22,7 @@ public class RecyclingTips {
     @NonNull
     private String name;
     private String description;
+
+    public RecyclingTips(long id, String name, String description) {
+    }
 }

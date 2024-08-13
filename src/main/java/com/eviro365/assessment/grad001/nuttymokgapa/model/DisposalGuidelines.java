@@ -22,4 +22,7 @@ public class DisposalGuidelines {
     @NonNull
     private String guideline;
     private String categoryId;
+
+    public DisposalGuidelines(long id, String name, String description) {
+    }
 }
