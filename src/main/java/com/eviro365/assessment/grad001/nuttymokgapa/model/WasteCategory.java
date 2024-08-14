@@ -25,5 +25,8 @@ public class WasteCategory
     private String description;
 
     public WasteCategory(long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 }
