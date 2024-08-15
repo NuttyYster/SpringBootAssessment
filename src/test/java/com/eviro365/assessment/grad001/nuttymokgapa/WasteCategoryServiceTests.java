@@ -1,16 +1,16 @@
 package com.eviro365.assessment.grad001.nuttymokgapa;
 
-import com.eviro365.assessment.grad001.nuttymokgapa.service.WasteCategoryService;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import com.eviro365.assessment.grad001.nuttymokgapa.model.WasteCategory;
 import com.eviro365.assessment.grad001.nuttymokgapa.repository.WasteCategotyRepository;
+import com.eviro365.assessment.grad001.nuttymokgapa.service.WasteCategoryService;
+import com.eviro365.assessment.grad001.nuttymokgapa.model.WasteCategory;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
@@ -57,13 +57,19 @@ public class WasteCategoryServiceTests {
 
     @Test
     public void saveCategoryTest() {
-        WasteCategory category = new WasteCategory(1L, "Plastic", "Plastic waste");
+        WasteCategory category = new WasteCategory(1L, "Paper", "Paper waste");
         when(repository.save(category)).thenReturn(category);
 
         WasteCategory result = service.saveCategory(category);
 
-        assertEquals("Plastic", result.getName());
+        assertEquals("Paper", result.getName());
         verify(repository, times(1)).save(category);
+    }
+
+    @Test
+    public void deleteCategoryTest() {
+        service.deleteCategory(1L);
+        verify(repository, times(1)).deleteById(1L);
     }
 
 }
