@@ -1,4 +1,4 @@
-package com.eviro365.assessment.grad001.nuttymokgapa;
+package com.eviro365.assessment.grad001.nuttymokgapa.UnitTests;
 
 import com.eviro365.assessment.grad001.nuttymokgapa.repository.WasteCategotyRepository;
 import com.eviro365.assessment.grad001.nuttymokgapa.service.WasteCategoryService;

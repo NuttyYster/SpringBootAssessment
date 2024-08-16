@@ -1,10 +1,9 @@
-package com.eviro365.assessment.grad001.nuttymokgapa;
+package com.eviro365.assessment.grad001.nuttymokgapa.IntegrationTests;
 
 import com.eviro365.assessment.grad001.nuttymokgapa.repository.WasteCategotyRepository;
 import com.eviro365.assessment.grad001.nuttymokgapa.service.WasteCategoryService;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.eviro365.assessment.grad001.nuttymokgapa.model.WasteCategory;
