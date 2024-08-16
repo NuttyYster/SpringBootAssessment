@@ -33,10 +33,9 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://github.com/NuttyYster/SpringBootAssessment</url>
+			<url>https://maven.pkg.github.com/NuttyYster/SpringBootAssessment</url>
 		</repository>
 	</distributionManagement>
-
 
 	<dependencies>
 		<dependency>
