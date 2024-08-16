@@ -1,7 +1,10 @@
 package com.eviro365.assessment.grad001.nuttymokgapa;
 
 import com.eviro365.assessment.grad001.nuttymokgapa.repository.WasteCategotyRepository;
+import com.eviro365.assessment.grad001.nuttymokgapa.service.WasteCategoryService;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.eviro365.assessment.grad001.nuttymokgapa.model.WasteCategory;
@@ -25,6 +28,9 @@ public class WasteCategoryControllerIntegrationTests {
     @Autowired
     private WasteCategotyRepository repository;
 
+    @Autowired
+    private WasteCategoryService service;
+
     @BeforeEach
     public void setup() {
         repository.deleteAll();
@@ -41,14 +47,17 @@ public class WasteCategoryControllerIntegrationTests {
                 .andExpect(jsonPath("$[0].name", is("Paper")))
                 .andExpect(jsonPath("$[1].name", is("Glass")));
     }
-//
-//    @Test
-//    public void getCategoryByIdTest() throws Exception {
-//        WasteCategory category = repository.findAll().get(0);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/api/waste-category/{id}", category.getId())
-//                        .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.name", is("Paper")));
-//    }
+
+    @Test
+    public void getCategoryByIdTest() throws Exception {
+
+        WasteCategory category = repository.findAll().get(0);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/waste-category/{id}", category.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.name", is("Paper")));
+
+    }
 }

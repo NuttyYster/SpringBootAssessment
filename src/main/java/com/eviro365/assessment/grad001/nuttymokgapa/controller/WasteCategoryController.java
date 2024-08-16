@@ -23,7 +23,7 @@ public class WasteCategoryController {
     }
 
     @GetMapping("/{id}")
-    public WasteCategory getCategoryById(Long id) {
+    public WasteCategory getCategoryById(@PathVariable Long id) {
         return service.getCategoryById(id);
     }
 
