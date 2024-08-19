@@ -39,7 +39,7 @@ public class RecyclingTipsController {
         return service.saveTip(tips);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteTip(@PathVariable Long id) {
         service.deleteTip(id);
     }

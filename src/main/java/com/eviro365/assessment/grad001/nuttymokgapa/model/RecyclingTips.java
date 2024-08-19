@@ -5,12 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class RecyclingTips {
     /**
      * This function will set and get the id's, name's and
@@ -24,5 +26,8 @@ public class RecyclingTips {
     private String description;
 
     public RecyclingTips(long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 }

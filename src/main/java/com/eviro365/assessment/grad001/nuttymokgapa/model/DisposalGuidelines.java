@@ -4,6 +4,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.NonNull;
@@ -11,6 +12,7 @@ import lombok.NonNull;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class DisposalGuidelines {
     /**
      * This function will set and get the id's, guideline's and
@@ -23,6 +25,9 @@ public class DisposalGuidelines {
     private String guideline;
     private String categoryId;
 
-    public DisposalGuidelines(long id, String name, String description) {
+    public DisposalGuidelines(long id, String guideline, String categoryId) {
+        this.id = id;
+        this.guideline = guideline;
+        this.categoryId = categoryId;
     }
 }

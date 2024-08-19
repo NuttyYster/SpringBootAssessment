@@ -39,7 +39,7 @@ public class DisposalGuidelineController {
         return service.saveGuideline(guidelines);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteGuideline(@PathVariable Long id) {
         service.deleteGuideline(id);
     }
