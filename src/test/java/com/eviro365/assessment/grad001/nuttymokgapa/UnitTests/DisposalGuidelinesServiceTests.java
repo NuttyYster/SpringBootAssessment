@@ -41,4 +41,30 @@ public class DisposalGuidelinesServiceTests {
         assertEquals(2, results.size());
         verify(repository, times(1)).findAll();
     }
+
+    @Test
+    public void getGuidelineByIdTest() {
+        DisposalGuidelines guidelines = new DisposalGuidelines(1L, "Dispose into plastic bin section", "PLS");
+        when(repository.findById(1L)).thenReturn(Optional.of(guidelines));
+
+        DisposalGuidelines result = service.getGuidelinesById(1L);
+        assertEquals("Dispose into plastic bin section", result.getGuideline());
+        verify(repository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void saveGuidelinesTest() {
+        DisposalGuidelines guidelines = new DisposalGuidelines(1L, "Dispose into the glasses only bin section", "GLS");
+        when(repository.save(guidelines)).thenReturn(guidelines);
+
+        DisposalGuidelines result = service.saveGuideline(guidelines);
+        assertEquals("Dispose into the glasses only bin section", result.getGuideline());
+        verify(repository, times(1)).save(guidelines);
+    }
+
+    @Test
+    public void deleteGuidelineTest() {
+        service.deleteGuideline(1L);
+        verify(repository, times(1)).deleteById(1L);
+    }
 }
