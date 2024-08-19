@@ -59,4 +59,53 @@ public class WasteCategoryControllerIntegrationTests {
                 .andExpect(jsonPath("$.name", is("Paper")));
 
     }
+
+    @Test
+    public void createCategoryTest() throws Exception {
+        String newCategory = "{\"name\": \"Glass\", \"description\": \"Glass waste\"}";
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/waste-category")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newCategory))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Glass")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/waste-category")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+
+    }
+
+    @Test
+    public void updateCategoryTest() throws Exception {
+        WasteCategory category = repository.findAll().get(0);
+        String updatedCategory = "{\"name\": \"Updated Paper\", \"description\":\"Updated description\"}";
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/waste-category/{id}", category.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedCategory))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name",is("Updated Paper")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/waste-category/{id}", category.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Updated Paper")));
+    }
+
+    @Test
+    public void deleteCategoryTest() throws Exception {
+        WasteCategory category = repository.findAll().get(0);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/waste-category/{id}", category.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/waste-category")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+
+    }
 }

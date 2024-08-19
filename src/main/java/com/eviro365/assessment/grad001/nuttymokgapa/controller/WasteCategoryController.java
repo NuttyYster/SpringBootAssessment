@@ -38,7 +38,7 @@ public class WasteCategoryController {
         return service.saveCategory(category);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Long id) {
         service.deleteCategory(id);
     }
