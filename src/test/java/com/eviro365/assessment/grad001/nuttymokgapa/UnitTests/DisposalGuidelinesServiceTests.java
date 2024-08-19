@@ -17,4 +17,28 @@ import java.util.List;
 import java.util.Optional;
 
 public class DisposalGuidelinesServiceTests {
+
+    @InjectMocks
+    private DisposalGuidelineService service;
+
+    @Mock
+    private DisposalGuidelineRepository repository;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void getAllGuidelinesTest() {
+        List<DisposalGuidelines> guidelines = Arrays.asList(
+                new DisposalGuidelines(1L, "Dispose into the paper bin section", "PPR"),
+                new DisposalGuidelines(2L, "Dispose into the glass bin section", "GLS")
+        );
+        when(repository.findAll()).thenReturn(guidelines);
+
+        List<DisposalGuidelines> results = service.getAllGuidelines();
+        assertEquals(2, results.size());
+        verify(repository, times(1)).findAll();
+    }
 }

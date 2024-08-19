@@ -17,4 +17,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class RecyclingTipsServiceTests {
+
+    @InjectMocks
+    private RecyclingTipsService service;
+
+    @Mock
+    private RecyclingTipsRepository repository;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
 }
