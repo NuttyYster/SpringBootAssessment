@@ -28,4 +28,43 @@ public class RecyclingTipsServiceTests {
     public void setup() {
         MockitoAnnotations.openMocks(this);
     }
+
+    @Test
+    public void getAllTipsTest() {
+        List<RecyclingTips> tips = Arrays.asList(
+                new RecyclingTips(1L, "clean","remove any unwanted material from the glass"),
+                new RecyclingTips(2L, "sort","sort them according to the density")
+        );
+        when(repository.findAll()).thenReturn(tips);
+
+        List<RecyclingTips> result = service.getAllTips();
+        assertEquals(2, result.size());
+        verify(repository, times(1)).findAll();
+    }
+
+    @Test
+    public void getTipsByIdTest() {
+        RecyclingTips tips = new RecyclingTips(1L, "pack", "pack them according to heir hardness");
+        when(repository.findById(1L)).thenReturn(Optional.of(tips));
+
+        RecyclingTips result = service.getTipById(1L);
+        assertEquals("pack", result.getName());
+        verify(repository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void saveTipsTest() {
+        RecyclingTips tips = new RecyclingTips(1L, "group", "rearrange them according to their colours");
+        when(repository.save(tips)).thenReturn(tips);
+
+        RecyclingTips result = service.saveTip(tips);
+        assertEquals("group", result.getName());
+        verify(repository, times(1)).save(tips);
+    }
+
+    @Test
+    public void deleteTips() {
+        service.deleteTip(1L);
+        verify(repository, times(1)).deleteById(1L);
+    }
 }
