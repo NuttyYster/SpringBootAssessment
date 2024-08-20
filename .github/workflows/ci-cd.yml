@@ -9,7 +9,16 @@ on:
       - main
 
 jobs:
+
+  integration:
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+      checks: write
+
   build:
+    needs: [integration]
+
     runs-on: ubuntu-latest
 
     steps:
