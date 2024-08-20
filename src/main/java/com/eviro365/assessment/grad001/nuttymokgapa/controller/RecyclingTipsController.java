@@ -24,7 +24,7 @@ public class RecyclingTipsController {
     }
 
     @GetMapping("/{id}")
-    public RecyclingTips getTipById(Long id) {
+    public RecyclingTips getTipById(@PathVariable Long id) {
         return service.getTipById(id);
     }
 

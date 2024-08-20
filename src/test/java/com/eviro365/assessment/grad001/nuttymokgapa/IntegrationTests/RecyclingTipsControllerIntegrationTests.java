@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import com.eviro365.assessment.grad001.nuttymokgapa.model.WasteCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
@@ -48,5 +47,64 @@ public class RecyclingTipsControllerIntegrationTests {
                 .andExpect(jsonPath("$[1].name", is("wipe")));
     }
 
+    @Test
+    public void getTipsByIdTest() throws Exception {
+
+        RecyclingTips tips = repository.findAll().get(0);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/recycling-tips/{id}", tips.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.name", is("peel")));
+
+    }
+
+    @Test
+    public void createTipsTest() throws Exception {
+        String newTip = "{\"name\": \"Cut\", \"description\": \"remove all the colours on the bottle\"}";
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/recycling-tips")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(newTip))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Cut")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/recycling-tips")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+    }
+
+    @Test
+    public void updateTipsTest() throws Exception {
+        RecyclingTips tips = repository.findAll().get(0);
+        String updatedTip = "{\"name\": \"Updated Cut\", \"description\": \"Updated remove all the colours on the bottle\"}";
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/recycling-tips/{id}", tips.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updatedTip))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Updated Cut")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/recycling-tips/{id}", tips.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Updated Cut")));
+    }
+
+    @Test
+    public void deleteTipTest() throws Exception {
+        RecyclingTips tips = repository.findAll().get(0);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/recycling-tips/{id}", tips.getId())
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/recycling-tips")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
 
 }
