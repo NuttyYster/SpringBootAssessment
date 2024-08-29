@@ -28,13 +28,13 @@ public class DisposalGuidelineController {
         return service.getGuidelinesById(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public DisposalGuidelines updateGuideline(@Validated @RequestBody DisposalGuidelines guidelines, @PathVariable Long id) {
         guidelines.setId(id);
         return service.saveGuideline(guidelines);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     public DisposalGuidelines createGuideline(@Validated @RequestBody DisposalGuidelines guidelines) {
         return service.saveGuideline(guidelines);
     }
